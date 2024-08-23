@@ -43,13 +43,13 @@ def main():
     for config in model_configs:
         tokenizer = get_tokenizer(config["checkpoint"])
         train_set = config["dataset_class"](
-            json_file='datasets/train_tokenized.json',
+            json_file='summarization-dataset/train_tokenized.json',
             max_length=args.max_length,
             pad_mask_id=args.pad_mask_id,
             tokenizer=tokenizer
         )
         test_set = config["dataset_class"](
-            json_file='datasets/test_tokenized.json',
+            json_file='summarization-dataset/test_tokenized.json',
             pad_mask_id=args.pad_mask_id,
             max_length=args.max_length,
             tokenizer=tokenizer
