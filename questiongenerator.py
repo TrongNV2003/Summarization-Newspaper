@@ -8,7 +8,7 @@ from tqdm import tqdm
 class Summarization:
     def __init__(self) -> None:
         self.SEQ_LENGTH = 512
-        QG_PRETRAINED = "vinai/bartpho-word-base"
+        QG_PRETRAINED = "bartpho-summarization"
         self.qg_tokenizer = AutoTokenizer.from_pretrained(QG_PRETRAINED)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.qg_model = AutoModelForSeq2SeqLM.from_pretrained(QG_PRETRAINED)
@@ -45,31 +45,35 @@ def process_files(input_folder: str, output_file: str, reference_file: str) -> N
     results = []
     reference_text = []
 
-    # Lấy danh sách tất cả các tệp tin .txt.seg trong thư mục
-    files = [f for f in os.listdir(input_folder) if f.endswith(".txt.seg")]
+    # # Lấy danh sách tất cả các tệp tin .txt.seg trong thư mục
+    # files = [f for f in os.listdir(input_folder) if f.endswith(".txt.seg")]
 
+    # for file_name in tqdm(files, desc="Processing files"):
+    #     file_path = os.path.join(input_folder, file_name)
 
-    for file_name in tqdm(files, desc="Processing files"):
-        file_path = os.path.join(input_folder, file_name)
+    #     with open(file_path, 'r', encoding='utf-8') as file:
+    #         text = file.read().strip()
 
-        with open(file_path, 'r', encoding='utf-8') as file:
-            text = file.read().strip()
+    with open(input_folder, 'r', encoding='utf-8') as file:
+        data = json.load(file)
 
+    # Duyệt qua từng mục trong JSON
+    for item in tqdm(data, desc="Processing files"):
+        if 'context' in item:
+            text = item['context'].strip()
             if text:
                 summary = summarizer.summarize(text)
                 summary_line = summarizer.extract_summary_line(text)
                 results.append({
-                    "file_name": file_name,
                     "context": text,
                     "summary": summary
                 })
 
                 reference_text.append({
-                    "file_name": file_name,
                     "reference_summary": summary_line
                 })
             else:
-                print(f"Warning: {file_name} is empty and will be skipped.")
+                print(f"Warning empty and will be skipped.")
 
     # Lưu kết quả vào tệp JSON
     with open(output_file, 'w', encoding='utf-8') as json_file:
@@ -82,7 +86,7 @@ def process_files(input_folder: str, output_file: str, reference_file: str) -> N
     print(f"Reference test saved to {reference_file}")
 
 if __name__ == "__main__":
-    input_folder = "/content/vietnews/data/test_tokenized"
+    input_folder = "summarization-dataset/test_tokenized.json"
     output_file = "summarization_results.json"
     reference_file = "reference_text.json"
     process_files(input_folder, output_file, reference_file)
