@@ -8,7 +8,7 @@ from tqdm import tqdm
 class Summarization:
     def __init__(self) -> None:
         self.SEQ_LENGTH = 512
-        QG_PRETRAINED = "bartpho-summarization"
+        QG_PRETRAINED = "Trongdz/bartpho-summarization"
         self.qg_tokenizer = AutoTokenizer.from_pretrained(QG_PRETRAINED)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.qg_model = AutoModelForSeq2SeqLM.from_pretrained(QG_PRETRAINED, torch_dtype=torch.bfloat16)
@@ -44,7 +44,7 @@ class Summarization:
         text_without_last_line = self.remove_last_line(text)
 
         inputs = self._encode_qg_input(text_without_last_line)
-        summary_ids = self.qg_model.generate(inputs["input_ids"], max_length=30, num_beams=4)
+        summary_ids = self.qg_model.generate(inputs["input_ids"], max_new_tokens=30, num_beams=4)
         summary = self.qg_tokenizer.decode(summary_ids[0], skip_special_tokens=True)
         return summary
 
