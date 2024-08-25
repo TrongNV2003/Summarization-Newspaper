@@ -11,7 +11,7 @@ class Summarization:
         QG_PRETRAINED = "bartpho-summarization"
         self.qg_tokenizer = AutoTokenizer.from_pretrained(QG_PRETRAINED)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.qg_model = AutoModelForSeq2SeqLM.from_pretrained(QG_PRETRAINED)
+        self.qg_model = AutoModelForSeq2SeqLM.from_pretrained(QG_PRETRAINED, torch_dtype=torch.bfloat16)
         self.qg_model.to(self.device)
         self.qg_model.eval()
 
@@ -30,12 +30,20 @@ class Summarization:
         # context = "\n".join(lines[:-1]).strip()
         return summary_line
 
+    def _encode_qg_input(self, qg_input: str) -> torch.Tensor:
+        """Tokenizes a string and returns a tensor of input ids."""
+        return self.qg_tokenizer(
+            qg_input,
+            padding='max_length',
+            max_length=self.SEQ_LENGTH,
+            truncation=True,
+            return_tensors="pt",
+        ).to(self.device)
+
     def summarize(self, text: str) -> str:
-        # Chuẩn bị văn bản (không bao gồm dòng cuối cùng)
         text_without_last_line = self.remove_last_line(text)
 
-        inputs = self.qg_tokenizer(text_without_last_line, max_length=self.SEQ_LENGTH, truncation=True, return_tensors="pt")
-        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+        inputs = self._encode_qg_input(text_without_last_line)
         summary_ids = self.qg_model.generate(inputs["input_ids"], max_length=30, num_beams=4)
         summary = self.qg_tokenizer.decode(summary_ids[0], skip_special_tokens=True)
         return summary
@@ -57,7 +65,6 @@ def process_files(input_folder: str, output_file: str, reference_file: str) -> N
     with open(input_folder, 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-    # Duyệt qua từng mục trong JSON
     for item in tqdm(data, desc="Processing files"):
         if 'context' in item:
             text = item['context'].strip()
@@ -70,12 +77,12 @@ def process_files(input_folder: str, output_file: str, reference_file: str) -> N
                 })
 
                 reference_text.append({
+                    "context": text,
                     "reference_summary": summary_line
                 })
             else:
                 print(f"Warning empty and will be skipped.")
 
-    # Lưu kết quả vào tệp JSON
     with open(output_file, 'w', encoding='utf-8') as json_file:
         json.dump(results, json_file, ensure_ascii=False, indent=4)
 

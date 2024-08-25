@@ -1,1 +1,6 @@
-/datasets
+/summarization-dataset/test_tokenized.json
+/summarization-dataset/val_tokenized.json
+/summarization-dataset/train_tokenized.json
+upload_model_huggingface.py
+.gitignore
+bartpho-summarization
