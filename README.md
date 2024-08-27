@@ -19,7 +19,7 @@ Or clone:
 ```bash
 !git clone https://huggingface.co/datasets/Trongdz/summarization-dataset
 ``` 
-(Dataset should put inside source code)
+(Dataset should put inside source code folder path)
 
 ### Fine-tune model
 ```bash
