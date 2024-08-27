@@ -1,5 +1,6 @@
-# Summarization-Finetune-BARTpho
+# Finetune model for Summarization
 
+In this project, i use model BARTpho and ViT5.
 ## Clone source code
 ```bash
 !git clone https://github.com/TrongNV2003/Bartpho-summarization-finetune.git
@@ -13,9 +14,9 @@ First, you need to install requirement pakage:
 ```
 
 ### Clone Newspaper dataset
-You need to clone summarization dataset. Get from [HuggingFace](Trongdz/summarization-dataset).
+You need to clone summarization dataset. Get from [HuggingFace](https://huggingface.co/datasets/Trongdz/summarization-dataset).
 
-Or clone:
+Or clone from huggingface:
 ```bash
 !git clone https://huggingface.co/datasets/Trongdz/summarization-dataset
 ``` 
@@ -25,6 +26,7 @@ Or clone:
 ```bash
 !python training/train_qa.py
 ```
+Or can get pre-trained model from [HuggingFace](https://huggingface.co/Trongdz/bartpho-summarization)
 
 ### Test model
 ```bash
