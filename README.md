@@ -12,8 +12,8 @@ First, you need to install requirement pakage:
 !pip install -r requirement.txt
 ```
 
-### Download dataset
-You need to get summarization dataset. Get from [HuggingFace](Trongdz/summarization-dataset).
+### Clone Newspaper dataset
+You need to clone summarization dataset. Get from [HuggingFace](Trongdz/summarization-dataset).
 
 Or clone:
 ```bash
