@@ -67,10 +67,3 @@ def process_files(text: str, output_file: str) -> None:
         json.dump(results, json_file, ensure_ascii=False, indent=4)
 
     print(f"Summarization completed. Results saved to {output_file}")
-    
-if __name__ == "__main__":
-    with open('data/context.txt', 'r',encoding='utf-8') as a:
-        article = a.read()
-    output_file = "summarization_results.json"
-    reference_file = "reference_text.json"
-    process_files(article, output_file)
