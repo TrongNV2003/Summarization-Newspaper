@@ -46,30 +46,31 @@ class Summarization:
         ).to(self.device)
 
     def summarize(self, text: str) -> str:
-        text_without_last_line = self._split_context(text)
+        split_text = self._split_context(text)
 
-        inputs = self._encode_qg_input(text_without_last_line)
+        inputs = self._encode_qg_input(split_text)
         summary_ids = self.qg_model.generate(inputs["input_ids"], max_new_tokens=30, num_beams=4)
         summary = self.qg_tokenizer.decode(summary_ids[0], skip_special_tokens=True)
         return summary
 
-    def process_files(self, output_file: str, reference_file: str, data: str) -> None:
-        summarizer = Summarization()
-        results = []
+def process_files(text: str, output_file: str) -> None:
+    summarizer = Summarization()
+    results = []
+    summary = summarizer.summarize(text)
+    results.append({
+        "context": text,
+        "summary": summary
+    })
 
-        for item in tqdm(data, desc="Processing files"):
-            if 'context' in item:
-                text = item['context'].strip()
-                if text:
-                    summary = summarizer.summarize(text)
-                    results.append({
-                        "context": text,
-                        "summary": summary
-                    })
-                else:
-                    print(f"Warning empty and will be skipped.")
 
-        with open(output_file, 'w', encoding='utf-8') as json_file:
-            json.dump(results, json_file, ensure_ascii=False, indent=4)
+    with open(output_file, 'w', encoding='utf-8') as json_file:
+        json.dump(results, json_file, ensure_ascii=False, indent=4)
 
-        print(f"Summarization completed. Results saved to {output_file}")
+    print(f"Summarization completed. Results saved to {output_file}")
+    
+if __name__ == "__main__":
+    with open('data/context.txt', 'r',encoding='utf-8') as a:
+        article = a.read()
+    output_file = "summarization_results.json"
+    reference_file = "reference_text.json"
+    process_files(article, output_file)
