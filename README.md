@@ -37,3 +37,10 @@ Or can get pre-trained model from [HuggingFace](https://huggingface.co/Trongdz/b
 ```bash
 !python rouge_score.py
 ```
+
+
+### Run model
+You can change context in "data/context.txt" for summarizing, then run:
+```bash
+!python run_summa.py
+```
