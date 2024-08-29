@@ -8,7 +8,7 @@ from tqdm import tqdm
 class Summarization:
     def __init__(self) -> None:
         self.SEQ_LENGTH = 512
-        QG_PRETRAINED = "Trongdz/vit5-summarization" #or any other model you want to use
+        QG_PRETRAINED = "Trongdz/ViT5-summarization" #or any other model you want to use
         self.qg_tokenizer = AutoTokenizer.from_pretrained(QG_PRETRAINED)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.qg_model = AutoModelForSeq2SeqLM.from_pretrained(QG_PRETRAINED, torch_dtype=torch.bfloat16)
