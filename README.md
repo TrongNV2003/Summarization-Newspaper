@@ -8,7 +8,6 @@ In this project, i use model BARTpho and ViT5.
 
 ## Usage
 First, you need to install requirement pakage:
-
 ```bash
 !pip install -r requirement.txt
 ```
@@ -23,10 +22,13 @@ Or clone from huggingface:
 (Dataset should put inside source code folder path)
 
 ### Fine-tune model
+For fine-tune model, run:
 ```bash
 !python training/train_qa.py
 ```
-Or can get pre-trained model from [HuggingFace](https://huggingface.co/Trongdz/bartpho-summarization)
+Or can get pre-trained model: 
+-BARTpho: [HuggingFace](https://huggingface.co/Trongdz/bartpho-summarization)
+-ViT5: [HuggingFace](https://huggingface.co/Trongdz/ViT5-summarization)
 
 ### Test model
 ```bash
@@ -40,7 +42,7 @@ Or can get pre-trained model from [HuggingFace](https://huggingface.co/Trongdz/b
 
 
 ### Run model
-You can change context in "data/context.txt" for summarizing, then run:
+You can change any context in "data/context.txt" for summarizing, then run:
 ```bash
 !python run_summa.py
 ```
