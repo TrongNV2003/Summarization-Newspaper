@@ -1,8 +1,6 @@
 import os
 import json
 from typing import List, Dict, Tuple
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-import torch
 from tqdm import tqdm
 
 class Summarization:

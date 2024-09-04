@@ -2,7 +2,6 @@ import json
 import torch
 from transformers import AutoTokenizer
 from typing import Mapping, Tuple
-import random
 
 class QGDataset(torch.utils.data.Dataset):
     def __init__(self, json_file: str, max_length: int, pad_mask_id: int, tokenizer: AutoTokenizer, separator = '<sep>') -> None:

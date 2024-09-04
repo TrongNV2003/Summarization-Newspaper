@@ -1,6 +1,0 @@
-numpy==1.24.3
-tokenizers==0.10.3
-torch==2.2.2
-transformers==4.35.2
-tqdm
-rouge_score
