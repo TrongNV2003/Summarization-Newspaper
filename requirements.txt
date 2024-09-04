@@ -1,0 +1,11 @@
+numpy==1.24.3
+tokenizers==0.19.1
+torch==2.4.0
+transformers==4.42.4
+argparse==1.1
+scikit-learn==1.3.2
+typing
+jsons==1.6.3
+rouge_score
+pandas==2.1.4
+random2
