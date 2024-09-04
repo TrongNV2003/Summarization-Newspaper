@@ -1,7 +1,8 @@
 # Finetune model for Summarization
+This project is a system for summarizing the context into a short sentence.
+In this project, i use model BARTpho and ViT5 for summarizing.
 
-In this project, i use model BARTpho and ViT5.
-## Clone source code
+## Source code
 ```bash
 git clone https://github.com/TrongNV2003/Bartpho-summarization-finetune.git
 ```
@@ -12,8 +13,8 @@ First, you need to install requirement pakage:
 pip install -r requirement.txt
 ```
 
-### Clone Newspaper dataset
-You need to clone summarization dataset. Get from [HuggingFace](https://huggingface.co/datasets/Trongdz/summarization-dataset).
+### Newspaper dataset
+You need to get summarization newspaper dataset. Get from [HuggingFace](https://huggingface.co/datasets/Trongdz/summarization-dataset).
 
 Or clone from huggingface:
 ```bash
