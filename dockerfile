@@ -1,4 +1,4 @@
-# 1. Chọn base image phù hợp, ví dụ: Python 3.9
+# 1. Chọn base image
 FROM python:3.11-slim
 
 # 2. Thiết lập thư mục làm việc bên trong container
