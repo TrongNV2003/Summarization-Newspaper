@@ -48,7 +48,7 @@ class Summarization:
         split_text = self._split_context(text)
 
         inputs = self._encode_qg_input(split_text)
-        summary_ids = self.qg_model.generate(inputs["input_ids"], max_new_tokens=30, num_beams=4)
+        summary_ids = self.qg_model.generate(inputs["input_ids"], max_new_tokens=128, num_beams=3)
         summary = self.qg_tokenizer.decode(summary_ids[0], skip_special_tokens=True)
         return summary
 
