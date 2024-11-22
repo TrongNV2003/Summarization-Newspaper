@@ -4,13 +4,13 @@ In this project, i use model BARTpho and ViT5 for summarizing.
 
 ## Source code
 ```bash
-git clone https://github.com/TrongNV2003/Bartpho-summarization-finetune.git
+git clone https://github.com/TrongNV2003/Summarization-Newspaper.git
 ```
 
 ## Usage
 First, you need to install requirement pakage:
 ```bash
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 ### Newspaper dataset
